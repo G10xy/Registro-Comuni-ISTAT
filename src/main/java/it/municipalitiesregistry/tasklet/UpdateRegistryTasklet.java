@@ -33,11 +33,8 @@ public class UpdateRegistryTasklet  implements Tasklet {
     }
 
     private void saveOrUpdate(RegistryPlaceDTO place) {
-        Optional<RegistryPlaceEntity> currentEntity = registryPlaceRepository.findByIdCodiceCatastaleDelComuneAndIdDenominazioneInItalianoAndIdDenominazioneUnitaTerritorialeSovracomunaleAndIdDenominazioneRegione(
-                place.getCodiceCatastaleDelComune(),
-                place.getDenominazioneInItaliano(),
-                place.getDenominazioneUnitaTerritorialeSovracomunale(),
-                place.getDenominazioneRegione());
+        Optional<RegistryPlaceEntity> currentEntity = registryPlaceRepository.findById(
+                new RegistryPlaceId(place.getCodiceCatastaleDelComune(), place.getDenominazioneInItaliano(), place.getDenominazioneUnitaTerritorialeSovracomunale(), place.getDenominazioneRegione()));
         if (currentEntity.isPresent()) {
             var entity = currentEntity.get();
             entity.setLastUpdate(LocalDateTime.now());
@@ -50,7 +47,10 @@ public class UpdateRegistryTasklet  implements Tasklet {
 
     private RegistryPlaceEntity fromRegistryPlaceCsvToEntity(RegistryPlaceDTO place) {
         RegistryPlaceEntity registryPlaceEntity = new RegistryPlaceEntity();
-        registryPlaceEntity.setId(new RegistryPlaceId(place.getDenominazioneRegione(), place.getCodiceCatastaleDelComune(), place.getDenominazioneInItaliano(), place.getDenominazioneUnitaTerritorialeSovracomunale()));
+        registryPlaceEntity.setDenominazioneRegione(place.getDenominazioneRegione());
+        registryPlaceEntity.setCodiceCatastaleDelComune(place.getCodiceCatastaleDelComune());
+        registryPlaceEntity.setDenominazioneInItaliano(place.getDenominazioneInItaliano());
+        registryPlaceEntity.setDenominazioneUnitaTerritorialeSovracomunale(place.getDenominazioneUnitaTerritorialeSovracomunale());
         registryPlaceEntity.setCodiceRegione( place.getCodiceRegione() );
         registryPlaceEntity.setCodiceUniteTerritorialeSovracomunale( place.getCodiceUniteTerritorialeSovracomunale() );
         registryPlaceEntity.setCodiceProvinciaStorico( place.getCodiceProvinciaStorico() );

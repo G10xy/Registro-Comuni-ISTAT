@@ -1,11 +1,6 @@
 package it.municipalitiesregistry.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +14,22 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@IdClass(RegistryPlaceId.class)
 @Table(name = "registro_comuni")
 public class RegistryPlaceEntity {
 
-    @EmbeddedId
-    private RegistryPlaceId id;
+    @Id
+    @Column(name = "denominazione_regione")
+    private String denominazioneRegione;
+    @Id
+    @Column(name = "codice_catastale_del_comune")
+    private String codiceCatastaleDelComune;
+    @Id
+    @Column(name = "denominazione_in_italiano")
+    private String denominazioneInItaliano;
+    @Id
+    @Column(name = "denominazione_unita_territoriale_sovracomunale")
+    private String denominazioneUnitaTerritorialeSovracomunale;
 
     @Column(name = "codice_regione")
     private String codiceRegione;
