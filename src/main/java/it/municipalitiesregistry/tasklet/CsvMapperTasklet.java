@@ -23,7 +23,7 @@ public class CsvMapperTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws IOException {
         // Store the list in the ExecutionContext
-        chunkContext.getStepContext().getStepExecution().getExecutionContext().put("newRegistry", readAllPlacesFromNewRegistry());
+        chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().put("newRegistry", readAllPlacesFromNewRegistry());
         return RepeatStatus.FINISHED;
     }
 

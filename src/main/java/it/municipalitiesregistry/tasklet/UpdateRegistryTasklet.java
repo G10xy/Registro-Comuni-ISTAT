@@ -24,7 +24,7 @@ public class UpdateRegistryTasklet  implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
-        List<RegistryPlaceDTO> places = (List<RegistryPlaceDTO>) chunkContext.getStepContext().getStepExecution().getExecutionContext().get("newRegistry");
+        List<RegistryPlaceDTO> places = (List<RegistryPlaceDTO>) chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("newRegistry");
         for(var place : places) {
             saveOrUpdate(place);
         }

@@ -44,7 +44,7 @@ public class BatchUpdateRegistryPlaceConfig {
                 .start(downloadFileStep(jobRepository))
                 .next(filesExistingDecider).on("FAIL").fail()
                 .from(filesExistingDecider).on("OK")
-                .to(filesDifferenceDecider).on("CONTINUE").to(updateRegistryStep(jobRepository))
+                .to(filesDifferenceDecider).on("CONTINUE").to(csvMappingStep(jobRepository)).next(updateRegistryStep(jobRepository))
                 .from(filesDifferenceDecider).on("SAME").to(deleteJustDownloadedFileStep(jobRepository))
                 .end()
                 .build();
@@ -65,10 +65,16 @@ public class BatchUpdateRegistryPlaceConfig {
     }
 
     @Bean
+    public Step csvMappingStep(JobRepository jobRepository) {
+        return new StepBuilder("csvMappingStep", jobRepository)
+                .tasklet(csvMapperTasklet, transactionManager())
+                .build();
+    }
+
+    @Bean
     public Step updateRegistryStep(JobRepository jobRepository) {
         return new StepBuilder("updateRegistryStep", jobRepository)
                 .tasklet(updateRegistryTasklet, transactionManager())
-                .tasklet(csvMapperTasklet, transactionManager())
                 .listener(updateRegistryStepExecutionListener)
                 .build();
     }
