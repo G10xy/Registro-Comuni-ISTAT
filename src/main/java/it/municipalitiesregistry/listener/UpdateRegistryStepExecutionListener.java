@@ -15,18 +15,18 @@ import java.nio.file.Paths;
 @Component
 public class UpdateRegistryStepExecutionListener implements StepExecutionListener {
 
-    @Value("${registry.local-file-read-name}")
-    private String localFileReadName;
+    @Value("${registry.local-file-current-name}")
+    private String currentFileName;
     @Value("${registry.local-file}")
     private String localFile;
-    @Value("${registry.local-file-read}")
-    private String localFileRead;
+    @Value("${registry.local-file-current}")
+    private String currentFile;
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         try {
-            FileUtility.deleteFileIfExists(localFileRead);
-            FileUtility.renameFile(Paths.get(localFile), localFileReadName);
+            FileUtility.deleteFileIfExists(currentFile);
+            FileUtility.renameFile(Paths.get(localFile), currentFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

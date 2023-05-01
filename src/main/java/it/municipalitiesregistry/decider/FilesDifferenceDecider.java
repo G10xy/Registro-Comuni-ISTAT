@@ -18,14 +18,14 @@ import java.security.NoSuchAlgorithmException;
 public class FilesDifferenceDecider  implements JobExecutionDecider {
 
     @Value("${registry.local-file}")
-    private String localFile;
-    @Value("${registry.local-file-read}")
-    private String localFileRead;
+    private String downloadedFile;
+    @Value("${registry.local-file-current}")
+    private String currentFile;
 
     public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
         String status;
         try {
-            if (checkFilesAreEquals(localFile, localFileRead)) {
+            if (checkFilesAreEquals(downloadedFile, currentFile)) {
                 status = "SAME";
             }
             else {
