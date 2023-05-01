@@ -14,12 +14,12 @@ import java.nio.file.Paths;
 @Component
 public class DeleteJustDownloadedFileTasklet implements Tasklet {
 
-    @Value("${registry.local-file-read}")
-    private String localFileRead;
+    @Value("${registry.local-file}")
+    private String downloadedFile;
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
-        deleteFileIfExists(localFileRead);
+        deleteFileIfExists(downloadedFile);
         return RepeatStatus.FINISHED;
     }
 
