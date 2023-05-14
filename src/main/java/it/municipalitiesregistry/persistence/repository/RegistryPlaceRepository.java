@@ -22,9 +22,17 @@ public interface RegistryPlaceRepository extends JpaRepository<RegistryPlaceEnti
 
     @Transactional
     @Modifying
-    @Query("update RegistryPlaceEntity place set place.currentValid = 0, place.validTo = :dateTime where place.currentValid = 1 and place.lastUpdate < :dateTime")
+    @Query("update RegistryPlaceEntity place set place.currentValid = false, place.validTo = :dateTime where place.currentValid = true and place.lastUpdate < :dateTime")
     void updatePastOnes(@Param("dateTime") LocalDateTime dateTime);
 
     @Lock(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
-    Optional<RegistryPlaceEntity> findById(RegistryPlaceId registryPlaceId);
+    @Query("select place from RegistryPlaceEntity place where place.id.codiceCatastaleDelComune = :codiceCatastaleDelComune " +
+            "and place.id.denominazioneInItaliano = :denominazioneInItaliano " +
+            "and place.id.denominazioneUnitaTerritorialeSovracomunale = :denominazioneUnitaTerritorialeSovracomunale " +
+            "and place.id.denominazioneRegione = :denominazioneRegione")
+    Optional<RegistryPlaceEntity> findByCompositeId(
+            @Param("codiceCatastaleDelComune") String codiceCatastaleDelComune,
+            @Param("denominazioneInItaliano") String denominazioneInItaliano,
+            @Param("denominazioneUnitaTerritorialeSovracomunale") String denominazioneUnitaTerritorialeSovracomunale,
+            @Param("denominazioneRegione") String denominazioneRegione);
 }
