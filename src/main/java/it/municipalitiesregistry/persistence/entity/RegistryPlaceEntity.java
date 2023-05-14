@@ -14,22 +14,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@IdClass(RegistryPlaceId.class)
 @Table(name = "registro_comuni")
 public class RegistryPlaceEntity {
 
-    @Id
-    @Column(name = "denominazione_regione")
-    private String denominazioneRegione;
-    @Id
-    @Column(name = "codice_catastale_del_comune")
-    private String codiceCatastaleDelComune;
-    @Id
-    @Column(name = "denominazione_in_italiano")
-    private String denominazioneInItaliano;
-    @Id
-    @Column(name = "denominazione_unita_territoriale_sovracomunale")
-    private String denominazioneUnitaTerritorialeSovracomunale;
+    @EmbeddedId
+    private RegistryPlaceId id;
 
     @Column(name = "codice_regione")
     private String codiceRegione;
@@ -104,7 +93,7 @@ public class RegistryPlaceEntity {
     private LocalDateTime lastUpdate;
 
     @Column(name = "attualmente_valido", nullable = false)
-    private int currentValid;
+    private boolean currentValid;
 
     @Column(name = "inizio_validita", nullable = false)
     private LocalDateTime validFrom;
@@ -120,7 +109,7 @@ public class RegistryPlaceEntity {
     private void prePersist() {
         this.uuidCode = UUID.randomUUID();
         this.lastUpdate = LocalDateTime.now();
-        this.currentValid = 1;
+        this.currentValid = true;
         this.validFrom = LocalDateTime.now();
     }
 }
