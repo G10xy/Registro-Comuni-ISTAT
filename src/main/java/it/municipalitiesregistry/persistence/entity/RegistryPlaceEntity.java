@@ -1,11 +1,16 @@
 package it.municipalitiesregistry.persistence.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -89,12 +94,14 @@ public class RegistryPlaceEntity {
     @Column(name = "codice_uuid", nullable = false, unique = true)
     private UUID uuidCode;
 
-    @Column(name = "ultimo_aggiornamento", nullable = false)
-    private LocalDateTime lastUpdate;
-
     @Column(name = "attualmente_valido", nullable = false)
     private boolean currentValid;
 
+    @UpdateTimestamp
+    @Column(name = "ultimo_aggiornamento", nullable = false)
+    private LocalDateTime lastUpdate;
+
+    @CreationTimestamp
     @Column(name = "inizio_validita", nullable = false)
     private LocalDateTime validFrom;
 
@@ -105,11 +112,4 @@ public class RegistryPlaceEntity {
     @Column(name = "versione")
     private long version;
 
-    @PrePersist
-    private void prePersist() {
-        this.uuidCode = UUID.randomUUID();
-        this.lastUpdate = LocalDateTime.now();
-        this.currentValid = true;
-        this.validFrom = LocalDateTime.now();
-    }
 }
