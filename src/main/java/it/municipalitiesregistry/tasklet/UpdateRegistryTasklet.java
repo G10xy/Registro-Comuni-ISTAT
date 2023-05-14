@@ -4,6 +4,7 @@ import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceId;
 import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -32,13 +33,12 @@ public class UpdateRegistryTasklet  implements Tasklet {
         return RepeatStatus.FINISHED;
     }
 
-    private void saveOrUpdate(RegistryPlaceDTO place) {
-        Optional<RegistryPlaceEntity> currentEntity = registryPlaceRepository.findById(
-                new RegistryPlaceId(place.getCodiceCatastaleDelComune(), place.getDenominazioneInItaliano(), place.getDenominazioneUnitaTerritorialeSovracomunale(), place.getDenominazioneRegione()));
+    @Transactional
+    public void saveOrUpdate(RegistryPlaceDTO place) {
+        Optional<RegistryPlaceEntity> currentEntity = registryPlaceRepository.findByCompositeId(place.getCodiceCatastaleDelComune(), place.getDenominazioneInItaliano(), place.getDenominazioneUnitaTerritorialeSovracomunale(), place.getDenominazioneRegione());
         if (currentEntity.isPresent()) {
             var entity = currentEntity.get();
             entity.setLastUpdate(LocalDateTime.now());
-            registryPlaceRepository.save(entity);
         } else {
             var newEntity = fromRegistryPlaceCsvToEntity(place);
             registryPlaceRepository.save(newEntity);
@@ -47,10 +47,12 @@ public class UpdateRegistryTasklet  implements Tasklet {
 
     private RegistryPlaceEntity fromRegistryPlaceCsvToEntity(RegistryPlaceDTO place) {
         RegistryPlaceEntity registryPlaceEntity = new RegistryPlaceEntity();
-        registryPlaceEntity.setDenominazioneRegione(place.getDenominazioneRegione());
-        registryPlaceEntity.setCodiceCatastaleDelComune(place.getCodiceCatastaleDelComune());
-        registryPlaceEntity.setDenominazioneInItaliano(place.getDenominazioneInItaliano());
-        registryPlaceEntity.setDenominazioneUnitaTerritorialeSovracomunale(place.getDenominazioneUnitaTerritorialeSovracomunale());
+        RegistryPlaceId id = new RegistryPlaceId();
+        id.setDenominazioneRegione(place.getDenominazioneRegione());
+        id.setCodiceCatastaleDelComune(place.getCodiceCatastaleDelComune());
+        id.setDenominazioneInItaliano(place.getDenominazioneInItaliano());
+        id.setDenominazioneUnitaTerritorialeSovracomunale(place.getDenominazioneUnitaTerritorialeSovracomunale());
+        registryPlaceEntity.setId(id);
         registryPlaceEntity.setCodiceRegione( place.getCodiceRegione() );
         registryPlaceEntity.setCodiceUniteTerritorialeSovracomunale( place.getCodiceUniteTerritorialeSovracomunale() );
         registryPlaceEntity.setCodiceProvinciaStorico( place.getCodiceProvinciaStorico() );
