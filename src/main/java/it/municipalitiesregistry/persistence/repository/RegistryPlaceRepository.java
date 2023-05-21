@@ -20,6 +20,8 @@ import java.util.UUID;
 @Repository
 public interface RegistryPlaceRepository extends JpaRepository<RegistryPlaceEntity, RegistryPlaceId> {
 
+    Optional<RegistryPlaceEntity> findByIdCodiceCatastaleDelComune(String codiceCatastaleDelComune);
+
     @Transactional
     @Modifying
     @Query("update RegistryPlaceEntity place set place.currentValid = false, place.validTo = :dateTime where place.currentValid = true and place.lastUpdate < :dateTime")

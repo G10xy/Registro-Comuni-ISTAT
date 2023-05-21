@@ -1,21 +1,31 @@
 package it.municipalitiesregistry.service;
 
+import it.municipalitiesregistry.mapper.RegistryPlaceMapper;
 import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
+import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
-import it.municipalitiesregistry.persistence.entity.RegistryPlaceId;
 import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class RegistryPlaceService {
 
     private final RegistryPlaceRepository registryPlaceRepository;
+    private final RegistryPlaceMapper mapper;
+
+
+    public RegistryPlaceEntity findEntityByMunicipalCode(String codiceCatastaleDelComune) {
+        return registryPlaceRepository.findByIdCodiceCatastaleDelComune(codiceCatastaleDelComune).orElseThrow();
+    }
+
+    public RegistryPlaceDTO findByMunicipalCode(String codiceCatastaleDelComune) {
+        return mapper.fromEntityToResponseDto(findEntityByMunicipalCode(codiceCatastaleDelComune));
+    }
 
     @Transactional
     public void saveOrUpdate(RegistryPlaceCsvDTO place) {
@@ -33,38 +43,7 @@ public class RegistryPlaceService {
     }
 
     private RegistryPlaceEntity createNewEntity(RegistryPlaceCsvDTO place) {
-        RegistryPlaceEntity registryPlaceEntity = new RegistryPlaceEntity();
-        RegistryPlaceId id = new RegistryPlaceId();
-        id.setDenominazioneRegione(place.getDenominazioneRegione());
-        id.setCodiceCatastaleDelComune(place.getCodiceCatastaleDelComune());
-        id.setDenominazioneInItaliano(place.getDenominazioneInItaliano());
-        id.setDenominazioneUnitaTerritorialeSovracomunale(place.getDenominazioneUnitaTerritorialeSovracomunale());
-        registryPlaceEntity.setId(id);
-        registryPlaceEntity.setCodiceRegione(place.getCodiceRegione());
-        registryPlaceEntity.setCodiceUniteTerritorialeSovracomunale(place.getCodiceUniteTerritorialeSovracomunale());
-        registryPlaceEntity.setCodiceProvinciaStorico(place.getCodiceProvinciaStorico());
-        registryPlaceEntity.setProgressivoDelComune(place.getProgressivoDelComune());
-        registryPlaceEntity.setCodiceComuneFormatoAlfanumerico(place.getCodiceComuneFormatoAlfanumerico());
-        registryPlaceEntity.setDenominazioneItalianaStraniera(place.getDenominazioneItalianaStraniera());
-        registryPlaceEntity.setDenominazioneAltraLingua(place.getDenominazioneAltraLingua());
-        registryPlaceEntity.setCodiceRipartizioneGeografica(place.getCodiceRipartizioneGeografica());
-        registryPlaceEntity.setRipartizioneGeografica(place.getRipartizioneGeografica());
-        registryPlaceEntity.setTipologiaUnitaTerritorialeSovracomunale(place.getTipologiaUnitaTerritorialeSovracomunale());
-        registryPlaceEntity.setFlagComuneCapoluogoDiProvinciaCittaMetropolitanaLiberoConsorzio(place.getFlagComuneCapoluogoDiProvinciaCittaMetropolitanaLiberoConsorzio());
-        registryPlaceEntity.setSiglaAutomobilistica(place.getSiglaAutomobilistica());
-        registryPlaceEntity.setCodiceComuneFormatoNumerico(place.getCodiceComuneFormatoNumerico());
-        registryPlaceEntity.setCodiceComuneNumericoCon110ProvinceDal2010Al2016(place.getCodiceComuneNumericoCon110ProvinceDal2010Al2016());
-        registryPlaceEntity.setCodiceComuneNumericoCon107ProvinceDal2006Al2009(place.getCodiceComuneNumericoCon107ProvinceDal2006Al2009());
-        registryPlaceEntity.setCodiceComuneNumericoCon103ProvinceDal1995Al2005(place.getCodiceComuneNumericoCon103ProvinceDal1995Al2005());
-        registryPlaceEntity.setCodiceNUTS12010(place.getCodiceNUTS12010());
-        registryPlaceEntity.setCodiceNUTS22010(place.getCodiceNUTS22010());
-        registryPlaceEntity.setCodiceNUTS32010(place.getCodiceNUTS32010());
-        registryPlaceEntity.setCodiceNUTS12021(place.getCodiceNUTS12021());
-        registryPlaceEntity.setCodiceNUTS22021(place.getCodiceNUTS22021());
-        registryPlaceEntity.setCodiceNUTS32021(place.getCodiceNUTS32021());
-        registryPlaceEntity.setCurrentValid(true);
-        registryPlaceEntity.setUuidCode(UUID.randomUUID());
-        return registryPlaceEntity;
+        return mapper.dtoCsvToEntity(place);
     }
 
     private void fromRegistryPlaceCsvToEntity(RegistryPlaceCsvDTO place, RegistryPlaceEntity entity) {
