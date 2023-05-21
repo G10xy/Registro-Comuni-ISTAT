@@ -1,7 +1,7 @@
 package it.municipalitiesregistry.tasklet;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import it.municipalitiesregistry.model.RegistryPlaceDTO;
+import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -27,9 +27,9 @@ public class CsvMapperTasklet implements Tasklet {
         return RepeatStatus.FINISHED;
     }
 
-    private List<RegistryPlaceDTO> readAllPlacesFromNewRegistry() throws IOException {
+    private List<RegistryPlaceCsvDTO> readAllPlacesFromNewRegistry() throws IOException {
         File file = new File(localFile);
-        List<RegistryPlaceDTO> registryPlaces = new CsvToBeanBuilder(new FileReader(file, StandardCharsets.ISO_8859_1)).withSeparator(';').withType(RegistryPlaceDTO.class).build().parse();
+        List<RegistryPlaceCsvDTO> registryPlaces = new CsvToBeanBuilder(new FileReader(file, StandardCharsets.ISO_8859_1)).withSeparator(';').withType(RegistryPlaceCsvDTO.class).build().parse();
         //Remove first line with columns names
         registryPlaces.remove(0);
         return registryPlaces;

@@ -1,6 +1,6 @@
 package it.municipalitiesregistry.service;
 
-import it.municipalitiesregistry.model.RegistryPlaceDTO;
+import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceId;
 import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
@@ -18,7 +18,7 @@ public class RegistryPlaceService {
     private final RegistryPlaceRepository registryPlaceRepository;
 
     @Transactional
-    public void saveOrUpdate(RegistryPlaceDTO place) {
+    public void saveOrUpdate(RegistryPlaceCsvDTO place) {
         Optional<RegistryPlaceEntity> currentEntity = registryPlaceRepository.findByCompositeId(place.getCodiceCatastaleDelComune(), place.getDenominazioneInItaliano(), place.getDenominazioneUnitaTerritorialeSovracomunale(), place.getDenominazioneRegione());
         if (currentEntity.isPresent()) {
             fromRegistryPlaceCsvToEntity(place, currentEntity.get());
@@ -32,7 +32,7 @@ public class RegistryPlaceService {
         registryPlaceRepository.updatePastOnes(dateTime);
     }
 
-    private RegistryPlaceEntity createNewEntity(RegistryPlaceDTO place) {
+    private RegistryPlaceEntity createNewEntity(RegistryPlaceCsvDTO place) {
         RegistryPlaceEntity registryPlaceEntity = new RegistryPlaceEntity();
         RegistryPlaceId id = new RegistryPlaceId();
         id.setDenominazioneRegione(place.getDenominazioneRegione());
@@ -67,7 +67,7 @@ public class RegistryPlaceService {
         return registryPlaceEntity;
     }
 
-    private void fromRegistryPlaceCsvToEntity(RegistryPlaceDTO place, RegistryPlaceEntity entity) {
+    private void fromRegistryPlaceCsvToEntity(RegistryPlaceCsvDTO place, RegistryPlaceEntity entity) {
         entity.setCodiceRegione(place.getCodiceRegione());
         entity.setCodiceUniteTerritorialeSovracomunale(place.getCodiceUniteTerritorialeSovracomunale());
         entity.setCodiceProvinciaStorico(place.getCodiceProvinciaStorico());

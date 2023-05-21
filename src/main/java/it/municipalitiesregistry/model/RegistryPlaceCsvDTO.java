@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Data
-public class RegistryPlaceDTO implements Serializable {
+public class RegistryPlaceCsvDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 3664244847615509887L;

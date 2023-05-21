@@ -1,6 +1,6 @@
 package it.municipalitiesregistry.tasklet;
 
-import it.municipalitiesregistry.model.RegistryPlaceDTO;
+import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
 import it.municipalitiesregistry.service.RegistryPlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepContribution;
@@ -19,7 +19,7 @@ public class UpdateRegistryTasklet  implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
-        List<RegistryPlaceDTO> places = (List<RegistryPlaceDTO>) chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("newRegistry");
+        List<RegistryPlaceCsvDTO> places = (List<RegistryPlaceCsvDTO>) chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("newRegistry");
         for(var place : places) {
             registryPlaceService.saveOrUpdate(place);
         }
