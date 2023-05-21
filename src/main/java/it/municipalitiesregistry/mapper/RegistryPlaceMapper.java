@@ -2,7 +2,7 @@ package it.municipalitiesregistry.mapper;
 
 
 import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
-import it.municipalitiesregistry.model.RegistryPlaceDto;
+import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,5 +23,5 @@ public interface RegistryPlaceMapper {
     @Mapping(source = "id.codiceCatastaleDelComune", target = "codiceCatastaleDelComune")
     @Mapping(source = "id.denominazioneInItaliano", target = "denominazioneInItaliano")
     @Mapping(source = "id.denominazioneUnitaTerritorialeSovracomunale", target = "denominazioneUnitaTerritorialeSovracomunale")
-    RegistryPlaceDto fromEntityToResponseDto(RegistryPlaceEntity entity);
+    RegistryPlaceDTO fromEntityToResponseDto(RegistryPlaceEntity entity);
 }

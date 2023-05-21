@@ -3,7 +3,7 @@ package it.municipalitiesregistry.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record RegistryPlaceDto(String codiceRegione,
+public record RegistryPlaceDTO(String codiceRegione,
                                String codiceUniteTerritorialeSovracomunale,
                                String codiceProvinciaStorico,
                                String progressivoDelComune,
