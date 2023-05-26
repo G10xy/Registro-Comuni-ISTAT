@@ -2,7 +2,7 @@ package it.municipalitiesregistry.api;
 
 
 import it.municipalitiesregistry.model.RegistryPlaceDTO;
-import it.municipalitiesregistry.service.RegistryPlaceService;
+import it.municipalitiesregistry.service.RegistryPlaceQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class RestController {
 
-    private final RegistryPlaceService registryPlaceService;
+    private final RegistryPlaceQueryService registryPlaceQueryService;
 
     @GetMapping("/by-codice-catastale")
     public RegistryPlaceDTO getRegistryPlaceByCodiceCatastaleDelComune(@RequestParam("codice-catastale") String codiceCatastale) {
-        return registryPlaceService.findByMunicipalCode(codiceCatastale);
+        return registryPlaceQueryService.findByMunicipalCode(codiceCatastale);
     }
 }
