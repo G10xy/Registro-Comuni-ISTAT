@@ -1,7 +1,6 @@
 package it.municipalitiesregistry.service;
 
 import it.municipalitiesregistry.mapper.RegistryPlaceMapper;
-import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
@@ -13,19 +12,10 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RegistryPlaceService {
+public class RegistryPlaceBatchService {
 
     private final RegistryPlaceRepository registryPlaceRepository;
     private final RegistryPlaceMapper mapper;
-
-
-    public RegistryPlaceEntity findEntityByMunicipalCode(String codiceCatastaleDelComune) {
-        return registryPlaceRepository.findByIdCodiceCatastaleDelComune(codiceCatastaleDelComune).orElseThrow();
-    }
-
-    public RegistryPlaceDTO findByMunicipalCode(String codiceCatastaleDelComune) {
-        return mapper.fromEntityToResponseDto(findEntityByMunicipalCode(codiceCatastaleDelComune));
-    }
 
     @Transactional
     public void saveOrUpdate(RegistryPlaceCsvDTO place) {
