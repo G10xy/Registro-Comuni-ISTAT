@@ -1,10 +1,6 @@
 package it.municipalitiesregistry.persistence.entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -88,9 +84,6 @@ public class RegistryPlaceEntity {
     @Column(name = "codice_NUTS3_2021")
     private String codiceNUTS32021;
 
-    @Column(name = "codice_uuid", nullable = false, unique = true)
-    private UUID uuidCode;
-
     @Column(name = "attualmente_valido", nullable = false)
     private boolean currentValid;
 
@@ -109,4 +102,8 @@ public class RegistryPlaceEntity {
     @Column(name = "versione")
     private long version;
 
+    @PrePersist
+    public void prePersist() {
+        this.version = 1;
+    }
 }
