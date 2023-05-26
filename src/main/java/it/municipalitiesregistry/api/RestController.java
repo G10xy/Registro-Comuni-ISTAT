@@ -7,12 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/v1/registro-comuni")
 @RequiredArgsConstructor
-public class Controller {
+public class RestController {
 
     private final RegistryPlaceService registryPlaceService;
 
