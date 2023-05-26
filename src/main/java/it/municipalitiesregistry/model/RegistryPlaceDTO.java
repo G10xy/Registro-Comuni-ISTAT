@@ -1,38 +1,33 @@
 package it.municipalitiesregistry.model;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import lombok.Data;
 
-public record RegistryPlaceDTO(String denominazioneRegione,
-                               String codiceCatastaleDelComune,
-                               String denominazioneInItaliano,
-                               String denominazioneUnitaTerritorialeSovracomunale,
-                               String codiceRegione,
-                               String codiceUniteTerritorialeSovracomunale,
-                               String codiceProvinciaStorico,
-                               String progressivoDelComune,
-                               String codiceComuneFormatoAlfanumerico,
-                               String denominazioneItalianaStraniera,
-                               String denominazioneAltraLingua,
-                               String codiceRipartizioneGeografica,
-                               String ripartizioneGeografica,
-                               String tipologiaUnitaTerritorialeSovracomunale,
-                               String flagComuneCapoluogoDiProvinciaCittaMetropolitanaLiberoConsorzio,
-                               String siglaAutomobilistica,
-                               String codiceComuneFormatoNumerico,
-                               String codiceComuneNumericoCon110ProvinceDal2010Al2016,
-                               String codiceComuneNumericoCon107ProvinceDal2006Al2009,
-                               String codiceComuneNumericoCon103ProvinceDal1995Al2005,
-                               String codiceNUTS12010,
-                               String codiceNUTS22010,
-                               String codiceNUTS32010,
-                               String codiceNUTS12021,
-                               String codiceNUTS22021,
-                               String codiceNUTS32021,
-                               UUID uuidCode,
-                               boolean currentValid,
-                               LocalDateTime lastUpdate,
-                               LocalDateTime validFrom,
-                               LocalDateTime validTo
-) {
+@Data
+public class RegistryPlaceDTO {
+    private String denominazioneRegione;
+    private String codiceCatastaleDelComune;
+    private String denominazioneInItaliano;
+    private String denominazioneUnitaTerritorialeSovracomunale;
+    private String codiceRegione;
+    private String codiceUniteTerritorialeSovracomunale;
+    private String codiceProvinciaStorico;
+    private String progressivoDelComune;
+    private String codiceComuneFormatoAlfanumerico;
+    private String denominazioneItalianaStraniera;
+    private String denominazioneAltraLingua;
+    private String codiceRipartizioneGeografica;
+    private String ripartizioneGeografica;
+    private String tipologiaUnitaTerritorialeSovracomunale;
+    private String flagComuneCapoluogoDiProvinciaCittaMetropolitanaLiberoConsorzio;
+    private String siglaAutomobilistica;
+    private String codiceComuneFormatoNumerico;
+    private String codiceComuneNumericoCon110ProvinceDal2010Al2016;
+    private String codiceComuneNumericoCon107ProvinceDal2006Al2009;
+    private String codiceComuneNumericoCon103ProvinceDal1995Al2005;
+    private String codiceNUTS12010;
+    private String codiceNUTS22010;
+    private String codiceNUTS32010;
+    private String codiceNUTS12021;
+    private String codiceNUTS22021;
+    private String codiceNUTS32021;
 }
