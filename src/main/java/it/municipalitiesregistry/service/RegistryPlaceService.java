@@ -1,8 +1,8 @@
 package it.municipalitiesregistry.service;
 
 import it.municipalitiesregistry.mapper.RegistryPlaceMapper;
-import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
 import it.municipalitiesregistry.model.RegistryPlaceDTO;
+import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
 import jakarta.transaction.Transactional;
