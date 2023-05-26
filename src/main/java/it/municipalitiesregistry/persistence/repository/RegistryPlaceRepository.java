@@ -20,6 +20,15 @@ import java.util.UUID;
 @Repository
 public interface RegistryPlaceRepository extends JpaRepository<RegistryPlaceEntity, RegistryPlaceId> {
 
+    @Query("SELECT DISTINCT place.id.denominazioneRegione FROM RegistryPlaceEntity place where place.currentValid = true")
+    List<String> findDistinctDenominazioneRegione();
+
+    @Query("SELECT DISTINCT place.id.denominazioneUnitaTerritorialeSovracomunale FROM RegistryPlaceEntity place where lower(place.id.denominazioneRegione) = lower(:regione) and place.currentValid = true")
+    List<String> findDistinctDenominazioneUnitaTerritorialeSovracomunale(@Param("regione") String denominazioneRegione);
+
+    @Query("SELECT place FROM RegistryPlaceEntity place where lower(place.id.denominazioneRegione) = lower(:regione) and lower(place.id.denominazioneUnitaTerritorialeSovracomunale) = lower(:provincia) and place.currentValid = true order by place.id.denominazioneInItaliano")
+    List<RegistryPlaceEntity> findDistinctDenominazioneInItaliano(@Param("provincia") String denominazioneUnitaTerritorialeSovracomunale, @Param("regione") String denominazioneRegione);
+
     Optional<RegistryPlaceEntity> findByIdCodiceCatastaleDelComune(String codiceCatastaleDelComune);
 
     @Transactional

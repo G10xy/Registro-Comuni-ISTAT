@@ -7,6 +7,8 @@ import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,5 +24,19 @@ public class RegistryPlaceQueryService {
 
     public RegistryPlaceDTO findByMunicipalCode(String codiceCatastaleDelComune) {
         return mapper.fromEntityToResponseDto(findEntityByMunicipalCode(codiceCatastaleDelComune));
+    }
+
+    public List<String> getAllRegions() {
+        return registryPlaceRepository.findDistinctDenominazioneRegione();
+    }
+
+    public List<String> getAllProvincesByRegion(String region) {
+        return registryPlaceRepository.findDistinctDenominazioneUnitaTerritorialeSovracomunale(region);
+    }
+
+    public List<RegistryPlaceDTO> getAllCitiesByProvinceAndRegion(String province, String region) {
+        return registryPlaceRepository.findDistinctDenominazioneInItaliano(province, region).stream()
+                .map(mapper::fromEntityToResponseDto)
+                .collect(Collectors.toList());
     }
 }
