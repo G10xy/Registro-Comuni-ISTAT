@@ -22,7 +22,7 @@ public class RegistryPlaceQueryService {
         return registryPlaceRepository.findByIdCodiceCatastaleDelComuneAndCurrentValidTrue(codiceCatastaleDelComune).orElseThrow();
     }
 
-    public RegistryPlaceDTO findByMunicipalCode(String codiceCatastaleDelComune) {
+    public RegistryPlaceDTO findByCadastralCode(String codiceCatastaleDelComune) {
         return mapper.fromEntityToResponseDto(findEntityByMunicipalCode(codiceCatastaleDelComune));
     }
 
