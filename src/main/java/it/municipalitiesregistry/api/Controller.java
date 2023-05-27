@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/v1/registro-comuni")
+@RequestMapping("/api/rest/v1/registro-comuni")
 @RequiredArgsConstructor
 public class Controller {
 
@@ -21,7 +21,7 @@ public class Controller {
 
     @GetMapping("/by-codice-catastale")
     public ResponseEntity<RegistryPlaceDTO> getPlaceByCodiceCatastaleDelComune(@RequestParam("codice-catastale") String codiceCatastale) {
-        return ResponseEntity.ok(registryPlaceQueryService.findByMunicipalCode(codiceCatastale));
+        return ResponseEntity.ok(registryPlaceQueryService.findByCadastralCode(codiceCatastale));
     }
 
     @GetMapping("/regioni")
