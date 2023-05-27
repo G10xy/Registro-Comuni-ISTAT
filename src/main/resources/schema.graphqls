@@ -1,0 +1,9 @@
+type Municipality {
+    codiceCatastaleDelComune: String!
+    denominazioneRegione: String!
+    denominazioneInItaliano: String!
+}
+
+type Query {
+    municipalityByCadastralCode(codiceCatastaleDelComune: String!): Municipality
+}
