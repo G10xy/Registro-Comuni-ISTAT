@@ -19,7 +19,7 @@ public class RegistryPlaceQueryService {
     private final RegistryPlaceMapper mapper;
 
     public RegistryPlaceEntity findEntityByMunicipalCode(String codiceCatastaleDelComune) {
-        return registryPlaceRepository.findByIdCodiceCatastaleDelComune(codiceCatastaleDelComune).orElseThrow();
+        return registryPlaceRepository.findByIdCodiceCatastaleDelComuneAndCurrentValidTrue(codiceCatastaleDelComune).orElseThrow();
     }
 
     public RegistryPlaceDTO findByMunicipalCode(String codiceCatastaleDelComune) {

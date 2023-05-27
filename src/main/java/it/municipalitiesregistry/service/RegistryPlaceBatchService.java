@@ -28,6 +28,7 @@ public class RegistryPlaceBatchService {
         }
     }
 
+    @Transactional
     public void updatePastOnes(LocalDateTime dateTime) {
         registryPlaceRepository.updatePastOnes(dateTime);
     }
