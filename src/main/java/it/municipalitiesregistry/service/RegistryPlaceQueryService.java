@@ -39,4 +39,16 @@ public class RegistryPlaceQueryService {
                 .map(mapper::fromEntityToResponseDto)
                 .collect(Collectors.toList());
     }
+
+    public List<RegistryPlaceDTO> getAllCitiesByProvince(String province) {
+        return registryPlaceRepository.findDistinctDenominazioneInItalianoByProvince(province).stream()
+                .map(mapper::fromEntityToResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<RegistryPlaceDTO> getAllCitiesByRegion(String region) {
+        return registryPlaceRepository.findDistinctDenominazioneInItalianoByRegion(region).stream()
+                .map(mapper::fromEntityToResponseDto)
+                .collect(Collectors.toList());
+    }
 }

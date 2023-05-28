@@ -26,6 +26,12 @@ public interface RegistryPlaceRepository extends JpaRepository<RegistryPlaceEnti
     @Query("SELECT place FROM RegistryPlaceEntity place where lower(place.id.denominazioneRegione) = lower(:regione) and lower(place.id.denominazioneUnitaTerritorialeSovracomunale) = lower(:provincia) and place.currentValid = true order by place.id.denominazioneInItaliano")
     List<RegistryPlaceEntity> findDistinctDenominazioneInItaliano(@Param("provincia") String denominazioneUnitaTerritorialeSovracomunale, @Param("regione") String denominazioneRegione);
 
+    @Query("SELECT place FROM RegistryPlaceEntity place where lower(place.id.denominazioneUnitaTerritorialeSovracomunale) = lower(:provincia) and place.currentValid = true order by place.id.denominazioneInItaliano")
+    List<RegistryPlaceEntity> findDistinctDenominazioneInItalianoByProvince(@Param("provincia") String denominazioneUnitaTerritorialeSovracomunale);
+
+    @Query("SELECT place FROM RegistryPlaceEntity place where lower(place.id.denominazioneRegione) = lower(:regione) and place.currentValid = true order by place.id.denominazioneInItaliano")
+    List<RegistryPlaceEntity> findDistinctDenominazioneInItalianoByRegion(@Param("regione") String denominazioneRegione);
+
     Optional<RegistryPlaceEntity> findByIdCodiceCatastaleDelComuneAndCurrentValidTrue(String codiceCatastaleDelComune);
 
     @Modifying
