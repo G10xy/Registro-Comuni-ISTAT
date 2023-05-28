@@ -31,5 +31,5 @@ type Query {
     municipalityByCadastralCode(codiceCatastaleDelComune: String!): Municipality
     allRegions: [String!]!
     allProvincesByRegion(region: String!): [String!]!
-    allMunicipalitiesByProvinceAndRegion(province: String!, region: String!): [Municipality!]!
+    municipalities(region: String, province: String): [Municipality!]!
 }

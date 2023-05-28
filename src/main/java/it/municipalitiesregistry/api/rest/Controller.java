@@ -1,4 +1,4 @@
-package it.municipalitiesregistry.api;
+package it.municipalitiesregistry.api.rest;
 
 
 import it.municipalitiesregistry.model.RegistryPlaceDTO;
@@ -34,9 +34,17 @@ public class Controller {
         return ResponseEntity.ok(registryPlaceQueryService.getAllProvincesByRegion(region));
     }
 
-    @GetMapping("/{regione}/{provincia}")
-    public ResponseEntity<Collection<RegistryPlaceDTO>> getMunicipalities(@PathVariable(value = "regione") String region, @PathVariable(value = "provincia") String province) {
-        return ResponseEntity.ok(registryPlaceQueryService.getAllCitiesByProvinceAndRegion(province, region));
+    @GetMapping
+    public ResponseEntity<Collection<RegistryPlaceDTO>> getMunicipalities(@RequestParam(value = "regione", required = false) String region, @RequestParam(value = "provincia", required = false) String province) {
+        if (region != null && province != null) {
+            return ResponseEntity.ok(registryPlaceQueryService.getAllCitiesByProvinceAndRegion(province, region));
+        } else if (region != null) {
+            return ResponseEntity.ok(registryPlaceQueryService.getAllCitiesByRegion(region));
+        } else if (province != null) {
+            return ResponseEntity.ok(registryPlaceQueryService.getAllCitiesByProvince(province));
+        } else {
+            throw new IllegalArgumentException("At least one parameter is required");
+        }
     }
 
 }
