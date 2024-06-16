@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package it.municipalitiesregistry.registry;
+
+option java_package = "it.municipalitiesregistry.registry";
+option java_multiple_files = true;
+
+// Define the Municipality message
+message Municipality {
+    string denominazione_regione = 1;
+    string codice_catastale_del_comune = 2;
+    string denominazione_in_italiano = 3;
+    string denominazione_unita_territoriale_sovracomunale = 4;
+    string codice_regione = 5;
+    string codice_unite_territoriale_sovracomunale = 6;
+    string codice_provincia_storico = 7;
+    string progressivo_del_comune = 8;
+    string codice_comune_formato_alfanumerico = 9;
+    string denominazione_italiana_straniera = 10;
+    string denominazione_altra_lingua = 11;
+    string codice_ripartizione_geografica = 12;
+    string ripartizione_geografica = 13;
+    string tipologia_unita_territoriale_sovracomunale = 14;
+    string flag_comune_capoluogo_di_provincia_citta_metropolitana_libero_consorzio = 15;
+    string sigla_automobilistica = 16;
+    string codice_comune_formato_numerico = 17;
+    string codice_comune_numerico_con_110_province_dal_2010_al_2016 = 18;
+    string codice_comune_numerico_con_107_province_dal_2006_al_2009 = 19;
+    string codice_comune_numerico_con_103_province_dal_1995_al_2005 = 20;
+    string codice_nuts1_2010 = 21;
+    string codice_nuts2_2010 = 22;
+    string codice_nuts3_2010 = 23;
+    string codice_nuts1_2021 = 24;
+    string codice_nuts2_2021 = 25;
+    string codice_nuts3_2021 = 26;
+}
+
+// Define the request and response messages for the service methods
+message MunicipalityByCadastralCodeRequest {
+    string codice_catastale_del_comune = 1;
+}
+
+message MunicipalityByCadastralCodeResponse {
+    Municipality municipality = 1;
+}
+
+message AllRegionsResponse {
+    repeated string regions = 1;
+}
+
+message AllProvincesByRegionRequest {
+    string region = 1;
+}
+
+message AllProvincesByRegionResponse {
+    repeated string provinces = 1;
+}
+
+message MunicipalitiesRequest {
+    string region = 1;
+    string province = 2;
+}
+
+message MunicipalitiesResponse {
+    repeated Municipality municipalities = 1;
+}
+
+// Define the gRPC service
+service RegistryPlaceService {
+    rpc GetMunicipalityByCadastralCode(MunicipalityByCadastralCodeRequest) returns (MunicipalityByCadastralCodeResponse);
+    rpc GetAllRegions(google.protobuf.Empty) returns (AllRegionsResponse);
+    rpc GetAllProvincesByRegion(AllProvincesByRegionRequest) returns (AllProvincesByRegionResponse);
+    rpc GetMunicipalities(MunicipalitiesRequest) returns (MunicipalitiesResponse);
+}
