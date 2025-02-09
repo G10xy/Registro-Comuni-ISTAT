@@ -26,9 +26,9 @@ public class UpdateRegistryTasklet  implements Tasklet {
         LocalDateTime now = LocalDateTime.now();
         List<RegistryPlaceCsvDTO> places = (List<RegistryPlaceCsvDTO>) chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext().get("newRegistry");
         for (var place : places) {
-            registryPlaceBatchService.saveOrUpdate(place);
+            registryPlaceBatchService.saveOrUpdate(place, now);
         }
-        registryPlaceBatchService.updatePastOnes(now);
+        registryPlaceBatchService.updatePastOnes(now.minusMinutes(1));
         log.info("Fine batch aggiornamento comuni");
         return RepeatStatus.FINISHED;
     }

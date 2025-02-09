@@ -94,11 +94,9 @@ public class RegistryPlaceEntity {
     @Column(name = "attualmente_valido", nullable = false)
     private boolean currentValid = true;
 
-    @UpdateTimestamp
     @Column(name = "ultimo_aggiornamento", nullable = false)
     private LocalDateTime lastUpdate;
 
-    @CreationTimestamp
     @Column(name = "inizio_validita", nullable = false)
     private LocalDateTime validFrom;
 
