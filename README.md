@@ -31,3 +31,48 @@ To handle a composite primary key, I decided to create an IdClass, so that I can
 Furthermore, considering the possibility that this code may be executed in a redundant environment, in order to avoid concurrency issues on the same entity, I chose to explicitly combine pessimistic and optimistic locking.
 
 The API have been developed in order to be used both via REST and GraphQL paradigm
+
+
+
+*It is suggested to run this project as container within a docker-compose within a docker network where a container with postgresql is present.*
+*Example:*
+
+```yaml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: registro-comuni-istat:latest
+    container_name: spring-app
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      CRON: "0 19 * * * ?"
+    depends_on:
+      postgres:
+      condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - net-gio
+
+networks:
+  my-network:
+    driver: bridge

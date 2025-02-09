@@ -20,7 +20,7 @@ public class BatchScheduler {
     private final Job job;
 
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "${registry.cron}")
     public void run() {
         try {
             JobParameters jobParameters = new JobParametersBuilder()
