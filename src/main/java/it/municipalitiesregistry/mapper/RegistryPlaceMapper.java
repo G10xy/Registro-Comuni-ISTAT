@@ -1,8 +1,8 @@
 package it.municipalitiesregistry.mapper;
 
 
-import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.model.RegistryPlaceCsvDTO;
+import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

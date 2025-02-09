@@ -1,17 +1,16 @@
 package it.municipalitiesregistry.persistence.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Version;
+import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
-import lombok.Data;
+import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity

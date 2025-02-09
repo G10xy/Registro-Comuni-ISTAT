@@ -5,6 +5,7 @@ import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.service.RegistryPlaceQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Component

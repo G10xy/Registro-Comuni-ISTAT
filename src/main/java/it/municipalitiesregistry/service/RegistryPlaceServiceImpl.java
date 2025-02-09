@@ -2,11 +2,18 @@ package it.municipalitiesregistry.service;
 
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
-import it.municipalitiesregistry.*;
+import it.municipalitiesregistry.AllProvincesByRegionRequest;
+import it.municipalitiesregistry.AllProvincesByRegionResponse;
+import it.municipalitiesregistry.AllRegionsResponse;
+import it.municipalitiesregistry.MunicipalitiesRequest;
+import it.municipalitiesregistry.MunicipalitiesResponse;
+import it.municipalitiesregistry.Municipality;
+import it.municipalitiesregistry.MunicipalityByCadastralCodeRequest;
+import it.municipalitiesregistry.MunicipalityByCadastralCodeResponse;
+import it.municipalitiesregistry.RegistryPlaceServiceGrpc;
 import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
-
 import java.util.List;
 
 import static it.municipalitiesregistry.util.Utility.isNullOrEmpty;
