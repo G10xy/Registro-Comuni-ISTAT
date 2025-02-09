@@ -92,7 +92,7 @@ public class RegistryPlaceEntity {
     private String codiceNUTS32021;
 
     @Column(name = "attualmente_valido", nullable = false)
-    private boolean currentValid;
+    private boolean currentValid = true;
 
     @UpdateTimestamp
     @Column(name = "ultimo_aggiornamento", nullable = false)
