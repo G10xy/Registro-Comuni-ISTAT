@@ -1,5 +1,5 @@
 # Registro-Comuni-ISTAT
-This project is about handling the list of all cities with every metadata associated
+This project is about handling the list of all italian cities with every metadata associated
 
 ITA  
 
@@ -9,12 +9,12 @@ Questo progetto è pensato per consigliare una soluzione che permetta di automat
 Tutto questo processo viene fatto all'avvio e riproposto ogni mezzanotte.  
 
 La chiave primaria è composta da quelli che reputo essere gli attributi più importanti e necessari per dare l'univocità al comune: il codice catastale, il nome del comune, il nome della provincia, il nome della regione.  
-(A volte capita che un comune cambi nome o cambi la provincia di riferimento. L'Italia è un paese speciale, forse anche troppo....)  
+(A volte capita che un comune cambi nome o cambi la provincia di riferimento.)  
 
 Per gestire una chiave primaria composita ho usato il paradigma basato sulla creazione di una IdClass così da poter poi fare la query classica findById passando direttamente l'oggetto piuttosto che dover scrivere una query troppo lunga riportando tutti gli attributi.  
 Inoltre, pensando alla possibilità che questo codice possa essere eseguito in un ambiente ridondato, al fine di evitare problemi di concorrenza sulla stessa entità, ho preferito esplicitare l'uso combinato del pessimistic e optimistic locking.  
 
-Le API sono state sviluppate in modo da essere usufruibili secondo il paradigma sia REST sia GraphQL.
+Le API sono state sviluppate in modo da essere usufruibili secondo il paradigma sia REST sia GraphQL sia gRPC.
 
 ENG  
 
@@ -25,12 +25,12 @@ In order to maintain a history of the information in the database, as well as in
 This entire process is carried out at startup and repeated every midnight.  
 
 The primary key is composed of what I consider to be the most important and necessary attributes to uniquely identify a municipality: the cadastral code, the name of the municipality, the name of the province, and the name of the region.  
-(Sometimes a municipality changes its name or the reference province. Italy is a special country, perhaps even too much...)  
+(Sometimes a municipality changes its name or the reference province.)  
 
 To handle a composite primary key, I decided to create an IdClass, so that I can then perform the classic findById query by passing the object directly rather than having to write a lengthy query listing all the attributes.  
 Furthermore, considering the possibility that this code may be executed in a redundant environment, in order to avoid concurrency issues on the same entity, I chose to explicitly combine pessimistic and optimistic locking.
 
-The API have been developed in order to be used both via REST and GraphQL paradigm
+The API have been developed in order to be used both via REST and GraphQL paradigm and gRPC framework.
 
 
 
