@@ -1,9 +1,18 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
+package it.municipalitiesregistry;
 
-package it.municipalitiesregistry.registry;
-
-option java_package = "it.municipalitiesregistry.registry";
+option java_outer_classname = "MunicipalityProto";
+option java_package = "it.municipalitiesregistry";
 option java_multiple_files = true;
+
+// Define the gRPC service
+service RegistryPlaceService {
+    rpc GetMunicipalityByCadastralCode(MunicipalityByCadastralCodeRequest) returns (MunicipalityByCadastralCodeResponse);
+    rpc GetAllRegions(google.protobuf.Empty) returns (AllRegionsResponse);
+    rpc GetAllProvincesByRegion(AllProvincesByRegionRequest) returns (AllProvincesByRegionResponse);
+    rpc GetMunicipalities(MunicipalitiesRequest) returns (MunicipalitiesResponse);
+}
 
 // Define the Municipality message
 message Municipality {
@@ -57,18 +66,10 @@ message AllProvincesByRegionResponse {
 }
 
 message MunicipalitiesRequest {
-    string region = 1;
-    string province = 2;
+    optional string region = 1;
+    optional string province = 2;
 }
 
 message MunicipalitiesResponse {
     repeated Municipality municipalities = 1;
-}
-
-// Define the gRPC service
-service RegistryPlaceService {
-    rpc GetMunicipalityByCadastralCode(MunicipalityByCadastralCodeRequest) returns (MunicipalityByCadastralCodeResponse);
-    rpc GetAllRegions(google.protobuf.Empty) returns (AllRegionsResponse);
-    rpc GetAllProvincesByRegion(AllProvincesByRegionRequest) returns (AllProvincesByRegionResponse);
-    rpc GetMunicipalities(MunicipalitiesRequest) returns (MunicipalitiesResponse);
 }
