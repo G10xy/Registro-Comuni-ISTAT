@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 import java.util.List;
 
+import static it.municipalitiesregistry.util.Utility.isNullOrEmpty;
+
 @GrpcService
 @RequiredArgsConstructor
 public class RegistryPlaceServiceImpl extends RegistryPlaceServiceGrpc.RegistryPlaceServiceImplBase {
@@ -44,11 +46,11 @@ public class RegistryPlaceServiceImpl extends RegistryPlaceServiceGrpc.RegistryP
         String region = request.getRegion();
         String province = request.getProvince();
         List<RegistryPlaceDTO> list;
-        if (region != null && province != null) {
+        if (!isNullOrEmpty(region) && !isNullOrEmpty(province)) {
             list = registryPlaceQueryService.getAllCitiesByProvinceAndRegion(province, region);
-        } else if (region != null) {
+        } else if (!isNullOrEmpty(region)) {
             list = registryPlaceQueryService.getAllCitiesByRegion(region);
-        } else if (province != null) {
+        } else if (!isNullOrEmpty(province)) {
             list = registryPlaceQueryService.getAllCitiesByProvince(province);
         } else {
             throw new IllegalArgumentException("At least one parameter is required");
