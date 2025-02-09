@@ -1,11 +1,12 @@
-package it.municipalitiesregistry;
+package it.municipalitiesregistry.service;
 
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
+import it.municipalitiesregistry.*;
 import it.municipalitiesregistry.model.RegistryPlaceDTO;
-import it.municipalitiesregistry.service.RegistryPlaceQueryService;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
+
 import java.util.List;
 
 import static it.municipalitiesregistry.util.Utility.isNullOrEmpty;
