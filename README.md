@@ -34,7 +34,7 @@ The API have been developed in order to be used both via REST and GraphQL paradi
 
 
 
-*It is suggested to run this project as container within a docker-compose within a docker network where a container with postgresql is present.*
+*It is suggested to run this project as container with a docker-compose within a docker network where a container with postgresql is present.*
 *Example:*
 
 ```yaml
