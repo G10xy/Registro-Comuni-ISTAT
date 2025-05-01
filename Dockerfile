@@ -1,5 +1,5 @@
 # Use an official Java runtime as a parent image
-FROM openjdk:17-jdk-alpine
+FROM openjdk:21-jdk-slim
 
 # The application's .jar file
 ARG JAR_FILE=target/*.jar
