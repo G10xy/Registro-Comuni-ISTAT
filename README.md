@@ -1,5 +1,6 @@
 # Registro-Comuni-ISTAT
-This project is about handling the list of all italian cities with every metadata associated
+This project is about handling the list of all italian cities with every metadata associated.
+
 You can pull the image from here https://hub.docker.com/r/dgiovanni/registro-comuni-istat
 
 ITA  
