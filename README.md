@@ -18,7 +18,16 @@ Inoltre, pensando alla possibilità che questo codice possa essere eseguito in u
 
 Le API sono state sviluppate in modo da essere usufruibili secondo il paradigma sia REST sia GraphQL sia gRPC.
 
-ENG  
+Il progetto è agnostico rispetto al database: PostgreSQL è configurato come predefinito, ma è possibile utilizzare anche MySQL, Oracle o SQL Server semplicemente impostando le variabili d'ambiente `DB_URL` e `DB_DRIVER`.
+
+| Database | `DB_URL` | `DB_DRIVER` |
+|---|---|---|
+| **PostgreSQL** (default) | `jdbc:postgresql://host:5432/db` | `org.postgresql.Driver` |
+| **MySQL** | `jdbc:mysql://host:3306/db` | `com.mysql.cj.jdbc.Driver` |
+| **Oracle** | `jdbc:oracle:thin:@host:1521:db` | `oracle.jdbc.OracleDriver` |
+| **SQL Server** | `jdbc:sqlserver://host:1433;databaseName=db` | `com.microsoft.sqlserver.jdbc.SQLServerDriver` |
+
+ENG
 
 This project demonstrates how to manage a registry containing information about various municipalities in Italy.  
 This registry is represented by a CSV file managed directly by ISTAT, the official agency responsible for handling this type of information on behalf of the Italian public administration.  
@@ -33,6 +42,15 @@ To handle a composite primary key, I decided to create an IdClass, so that I can
 Furthermore, considering the possibility that this code may be executed in a redundant environment, in order to avoid concurrency issues on the same entity, I chose to explicitly combine pessimistic and optimistic locking.
 
 The API have been developed in order to be used both via REST and GraphQL paradigm and gRPC framework.
+
+The project is database-agnostic: PostgreSQL is configured as the default, but you can also use MySQL, Oracle, or SQL Server by simply setting the `DB_URL` and `DB_DRIVER` environment variables.
+
+| Database | `DB_URL` | `DB_DRIVER` |
+|---|---|---|
+| **PostgreSQL** (default) | `jdbc:postgresql://host:5432/db` | `org.postgresql.Driver` |
+| **MySQL** | `jdbc:mysql://host:3306/db` | `com.mysql.cj.jdbc.Driver` |
+| **Oracle** | `jdbc:oracle:thin:@host:1521:db` | `oracle.jdbc.OracleDriver` |
+| **SQL Server** | `jdbc:sqlserver://host:1433;databaseName=db` | `com.microsoft.sqlserver.jdbc.SQLServerDriver` |
 
 
 
