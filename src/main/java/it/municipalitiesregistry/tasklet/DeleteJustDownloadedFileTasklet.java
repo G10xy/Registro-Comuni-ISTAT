@@ -1,6 +1,6 @@
 package it.municipalitiesregistry.tasklet;
 
-import it.municipalitiesregistry.util.FileUtility;
+import it.municipalitiesregistry.util.Utility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -21,7 +21,7 @@ public class DeleteJustDownloadedFileTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
         try {
-            FileUtility.deleteFileIfExists(downloadedFile);
+            Utility.deleteFileIfExists(downloadedFile);
         } catch (IOException e) {
             log.error("Error deleting downloaded file: {}", downloadedFile, e);
         }

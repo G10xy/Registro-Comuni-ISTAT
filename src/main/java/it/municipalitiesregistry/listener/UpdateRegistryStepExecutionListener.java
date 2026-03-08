@@ -1,6 +1,6 @@
 package it.municipalitiesregistry.listener;
 
-import it.municipalitiesregistry.util.FileUtility;
+import it.municipalitiesregistry.util.Utility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
@@ -25,8 +25,8 @@ public class UpdateRegistryStepExecutionListener implements StepExecutionListene
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         try {
-            FileUtility.deleteFileIfExists(currentFile);
-            FileUtility.renameFile(Paths.get(localFile), currentFileName);
+            Utility.deleteFileIfExists(currentFile);
+            Utility.renameFile(Paths.get(localFile), currentFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,6 @@
 package it.municipalitiesregistry.decider;
 
-import it.municipalitiesregistry.util.FileUtility;
+import it.municipalitiesregistry.util.Utility;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.job.flow.FlowExecutionStatus;
@@ -17,7 +17,7 @@ public class FilesExistingDecider implements JobExecutionDecider {
 
     public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution) {
         String status;
-        if (FileUtility.checkFileExists(localFile)) {
+        if (Utility.checkFileExists(localFile)) {
             status = "OK";
         }
         else {

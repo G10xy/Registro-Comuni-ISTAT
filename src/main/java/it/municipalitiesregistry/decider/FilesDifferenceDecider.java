@@ -1,6 +1,6 @@
 package it.municipalitiesregistry.decider;
 
-import it.municipalitiesregistry.util.FileUtility;
+import it.municipalitiesregistry.util.Utility;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.job.flow.FlowExecutionStatus;
@@ -39,7 +39,7 @@ public class FilesDifferenceDecider  implements JobExecutionDecider {
 
     private boolean checkFilesAreEquals(String firstFile, String secondFile) throws NoSuchAlgorithmException, IOException {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        if(!FileUtility.checkFileExists(secondFile)) {
+        if(!Utility.checkFileExists(secondFile)) {
             return false;
         }
         return checksum(firstFile, md).equals(checksum(secondFile, md));
