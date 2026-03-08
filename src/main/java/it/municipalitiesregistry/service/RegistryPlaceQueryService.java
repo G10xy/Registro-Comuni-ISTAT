@@ -5,8 +5,10 @@ import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.persistence.entity.RegistryPlaceEntity;
 import it.municipalitiesregistry.persistence.repository.RegistryPlaceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +22,8 @@ public class RegistryPlaceQueryService {
     private final RegistryPlaceMapper mapper;
 
     public RegistryPlaceEntity findEntityByMunicipalCode(String codiceCatastaleDelComune) {
-        return registryPlaceRepository.findByIdCodiceCatastaleDelComuneAndCurrentValidTrue(codiceCatastaleDelComune).orElseThrow();
+        return registryPlaceRepository.findByIdCodiceCatastaleDelComuneAndCurrentValidTrue(codiceCatastaleDelComune)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Municipality not found for cadastral code: " + codiceCatastaleDelComune));
     }
 
     public RegistryPlaceDTO findByCadastralCode(String codiceCatastaleDelComune) {

@@ -4,11 +4,13 @@ package it.municipalitiesregistry.api.rest;
 import it.municipalitiesregistry.model.RegistryPlaceDTO;
 import it.municipalitiesregistry.service.RegistryPlaceQueryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 
@@ -43,7 +45,7 @@ public class Controller {
         } else if (province != null) {
             return ResponseEntity.ok(registryPlaceQueryService.getAllCitiesByProvince(province));
         } else {
-            throw new IllegalArgumentException("At least one parameter is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one parameter (regione or provincia) is required");
         }
     }
 
