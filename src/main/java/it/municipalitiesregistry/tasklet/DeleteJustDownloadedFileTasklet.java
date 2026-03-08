@@ -1,5 +1,7 @@
 package it.municipalitiesregistry.tasklet;
 
+import it.municipalitiesregistry.util.FileUtility;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -8,9 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
+@Slf4j
 @Component
 public class DeleteJustDownloadedFileTasklet implements Tasklet {
 
@@ -19,18 +20,11 @@ public class DeleteJustDownloadedFileTasklet implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
-        deleteFileIfExists(downloadedFile);
-        return RepeatStatus.FINISHED;
-    }
-
-    public void deleteFileIfExists(String fileLocation) {
-        var filePath = Paths.get(fileLocation);
-        if (Files.exists(filePath)) {
-            try {
-                Files.delete(filePath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            FileUtility.deleteFileIfExists(downloadedFile);
+        } catch (IOException e) {
+            log.error("Error deleting downloaded file: {}", downloadedFile, e);
         }
+        return RepeatStatus.FINISHED;
     }
 }
