@@ -3,7 +3,6 @@ package it.municipalitiesregistry.persistence.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
@@ -105,9 +104,4 @@ public class RegistryPlaceEntity {
     @Version
     @Column(name = "versione")
     private long version;
-
-    @PrePersist
-    public void prePersist() {
-        this.version = 1;
-    }
 }
