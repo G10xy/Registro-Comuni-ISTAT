@@ -30,7 +30,7 @@ public class UpdateRegistryStepExecutionListener implements StepExecutionListene
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("Step " + stepExecution.getStepName() + " has finished");
+        log.info("Step {} has finished", stepExecution.getStepName());
         return stepExecution.getExitStatus();
     }
 }
