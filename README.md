@@ -87,11 +87,11 @@ services:
       CRON: "0 19 * * * ?"
     depends_on:
       postgres:
-      condition: service_healthy
+        condition: service_healthy
     ports:
       - "8080:8080"
     networks:
-      - net-gio
+      - my-network
 
 networks:
   my-network:
