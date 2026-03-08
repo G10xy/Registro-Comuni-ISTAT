@@ -30,9 +30,13 @@ public class CsvMapperTasklet implements Tasklet {
 
     private List<RegistryPlaceCsvDTO> readAllPlacesFromNewRegistry() throws IOException {
         File file = new File(localFile);
-        List<RegistryPlaceCsvDTO> registryPlaces = new CsvToBeanBuilder(new FileReader(file, StandardCharsets.ISO_8859_1)).withSeparator(';').withType(RegistryPlaceCsvDTO.class).build().parse();
-        //Remove first line with columns names
-        registryPlaces.remove(0);
-        return registryPlaces;
+        try (FileReader reader = new FileReader(file, StandardCharsets.ISO_8859_1)) {
+            return new CsvToBeanBuilder<RegistryPlaceCsvDTO>(reader)
+                    .withSeparator(';')
+                    .withSkipLines(1)
+                    .withType(RegistryPlaceCsvDTO.class)
+                    .build()
+                    .parse();
+        }
     }
 }
