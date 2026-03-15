@@ -122,7 +122,7 @@
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
-			<version>3.19.1</version>
+			<version>3.25.5</version>
 		</dependency>
 		<!-- gRPC Spring Boot Starter -->
 		<dependency>
