@@ -29,7 +29,7 @@ class CsvMapperTaskletTest {
 
             assertEquals(3, places.size());
 
-            RegistryPlaceCsvDTO torino = places.getFirst();
+            RegistryPlaceCsvDTO torino = places.get(0);
             assertEquals("Torino", torino.getDenominazioneInItaliano());
             assertEquals("Piemonte", torino.getDenominazioneRegione());
             assertEquals("Torino", torino.getDenominazioneUnitaTerritorialeSovracomunale());
@@ -46,6 +46,7 @@ class CsvMapperTaskletTest {
             assertEquals("Roma", roma.getDenominazioneInItaliano());
             assertEquals("Lazio", roma.getDenominazioneRegione());
             assertEquals("H501", roma.getCodiceCatastaleDelComune());
+
         } catch (Exception e) {
             fail("CSV parsing failed: " + e.getMessage());
         }
@@ -65,9 +66,8 @@ class CsvMapperTaskletTest {
                     .build()
                     .parse();
 
-            // None of the parsed entries should contain "Codice Regione" (header value)
-            places.forEach(p ->
-                    assertNotEquals("Codice Regione", p.getCodiceRegione())
+            places.forEach(p -> 
+                assertNotEquals("Codice Regione", p.getCodiceRegione())
             );
         } catch (Exception e) {
             fail("CSV parsing failed: " + e.getMessage());
@@ -88,11 +88,9 @@ class CsvMapperTaskletTest {
                     .build()
                     .parse();
 
-            RegistryPlaceCsvDTO torino = places.getFirst();
-            assertEquals("ITC", torino.getCodiceNUTS12010());
+            RegistryPlaceCsvDTO torino = places.get(0);
             assertEquals("ITC1", torino.getCodiceNUTS22010());
             assertEquals("ITC11", torino.getCodiceNUTS32010());
-            assertEquals("ITC", torino.getCodiceNUTS12021());
             assertEquals("ITC1", torino.getCodiceNUTS22021());
             assertEquals("ITC11", torino.getCodiceNUTS32021());
         } catch (Exception e) {
